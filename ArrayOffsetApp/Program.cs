@@ -26,21 +26,14 @@
 			{
 				return Array.Empty<int>();
 			}
-			int[] _arrayOut = new int[_length];
+			Span<int> _arrayOut = new int[_length];
 			for(int i = 0; i < _length; i++)
 			{
-				int _newPosition = 0;
-				if((_offset + (_length - 1)) - i == _length)
-				{
-					_newPosition = _length - 1;
-				}
-				else
-				{
-					_newPosition = (((_length - 1) + _offset) - i) % _length;
-				}
-				_arrayOut[i] = _input[_newPosition];
+				int _newPosition = (_length - 1 + _offset - i) % _length;
+
+				_arrayOut[_newPosition] = _input[_length - 1 - i];
 			}
-			return _arrayOut;
+			return _arrayOut.ToArray();
 		}
 	}
 }
